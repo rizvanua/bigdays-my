@@ -40,7 +40,7 @@ const Hero: React.FC = () => {
       <animated.div className="absolute inset-0" style={backgroundSpring}>
         <div className="absolute inset-0 bg-black/20"></div>
         <img 
-          src="/public/hero-banner.webp" 
+          src="/hero-banner.webp" 
           alt="Hero Background" 
           className="absolute inset-0 w-full h-full object-cover"
         />
