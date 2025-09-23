@@ -1,0 +1,70 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  body {
+    @apply font-sans text-secondary-gray bg-white leading-relaxed;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-serif font-semibold leading-tight;
+  }
+}
+
+@layer components {
+  .btn {
+    @apply inline-block px-6 py-3 bg-primary-green text-white no-underline rounded font-medium transition-all duration-300 border-none cursor-pointer text-base;
+  }
+  
+  .btn:hover {
+    @apply bg-primary-green-light -translate-y-0.5;
+  }
+  
+  .btn-secondary {
+    @apply bg-transparent text-primary-green border-2 border-primary-green;
+  }
+  
+  .btn-secondary:hover {
+    @apply bg-primary-green text-white;
+  }
+}
+
+@layer utilities {
+  .section {
+    @apply py-20;
+  }
+  
+  .section-dark {
+    @apply bg-primary-green text-white;
+  }
+  
+  .section-light {
+    @apply bg-secondary-gray-light;
+  }
+  
+  .container {
+    @apply max-w-6xl mx-auto px-5;
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-secondary-gray-light;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-primary-green rounded;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-primary-green-light;
+}
