@@ -1,34 +1,20 @@
 version: 1
-backend:
-  phases:
-    build:
-      commands:
-        - '# Install pnpm'
-        - npm install -g pnpm
-        - '# Install dependencies'
-        - pnpm install
-        - '# Build backend (this will create the necessary artifacts)'
-        - cd apps/backend && pnpm deploy
-frontend:
-  phases:
-    preBuild:
-      commands:
-        - '# Install pnpm'
-        - npm install -g pnpm
-        - '# Install dependencies'
-        - pnpm install
-        - '# Copy backend outputs to frontend'
-        - cp apps/backend/amplify_outputs.json apps/frontend/src/ 2>/dev/null || echo "Backend outputs not found, continuing..."
-    build:
-      commands:
-        - '# Build frontend'
-        - pnpm --filter @bigdays/frontend build
-  artifacts:
-    # IMPORTANT - Please verify your build output directory
-    baseDirectory: apps/frontend/dist
-    files:
-      - '**/*'
-  cache:
-    paths:
-      - node_modules/**/*
-      - .pnpm-store/**/*
+applications:
+  - appRoot: apps/backend         # 👈 tells Amplify where backend.ts lives
+    frontend:
+      phases:
+        preBuild:
+          commands:
+            - pnpm install --frozen-lockfile
+        build:
+          commands:
+            # Build your FRONTEND from sibling folder
+            - cd ../frontend && pnpm install --frozen-lockfile && pnpm build
+      artifacts:
+        baseDirectory: ../frontend/dist   # vite output folder
+        files:
+          - '**/*'
+      cache:
+        paths:
+          - node_modules/**/*
+          - ../frontend/node_modules/**/*
