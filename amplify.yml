@@ -1,27 +1,31 @@
 version: 1
 applications:
-  - appRoot: apps/backend
+  - appRoot: apps/backend       # where amplify/backend.ts lives
     backend:
       phases:
         build:
           commands:
+            - echo "🔧 Installing pnpm and backend deps"
             - npm install -g pnpm@8
             - pnpm install --frozen-lockfile
-            - pnpm add -D @aws-amplify/backend
+            - echo "📦 Generating Amplify backend outputs"
             - npx ampx generate
+            - echo "🚀 Deploying Amplify backend environment for branch: $AWS_BRANCH"
             - npx ampx pipeline-deploy --app-id d1c8whcw05ye14 --branch $AWS_BRANCH
     frontend:
       phases:
         preBuild:
           commands:
+            - echo "🔧 Installing pnpm and frontend deps"
             - npm install -g pnpm@8
             - pnpm install --frozen-lockfile
             - cd ../frontend && pnpm install --frozen-lockfile
         build:
           commands:
+            - echo "🏗️ Building frontend"
             - cd ../frontend && pnpm build
       artifacts:
-        baseDirectory: ../frontend/dist
+        baseDirectory: ../frontend/dist   # adjust if Next.js (e.g. .next)
         files:
           - '**/*'
       cache:
