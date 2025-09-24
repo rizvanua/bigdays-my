@@ -1,14 +1,4 @@
 version: 1
-backend:
-  phases:
-    build:
-      commands:
-        - '# Install pnpm'
-        - npm install -g pnpm
-        - '# Install dependencies'
-        - pnpm install
-        - '# Execute Amplify CLI with the helper script'
-        - cd apps/backend && amplifyPush --simple
 frontend:
   phases:
     preBuild:
