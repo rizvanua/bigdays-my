@@ -320,7 +320,7 @@
         {
          "Ref": "AWS::Region"
         },
-        "eu-central-1"
+        "us-east-1"
        ]
       },
       {

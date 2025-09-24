@@ -3,7 +3,7 @@ applications:
   - appRoot: apps/backend
     env:
       variables:
-        AWS_REGION: eu-central-1
+        AWS_REGION: us-east-1
     backend:
       phases:
         build:
