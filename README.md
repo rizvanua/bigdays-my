@@ -1,96 +1,126 @@
-# BigDays Wedding Landing Page
+# BigDays Wedding Landing - Monorepo
 
-A beautiful, responsive wedding venue landing page built with React, TypeScript, and Vite. This elegant website showcases Italian wedding venues with a sophisticated design inspired by the romance and beauty of Italy.
+A modern wedding landing page built with React, TypeScript, and AWS Amplify, organized as a monorepo using pnpm.
 
-## Features
+## 🏗️ Project Structure
 
-- 🎨 **Elegant Design**: Clean, sophisticated layout with beautiful typography and color scheme
-- 📱 **Responsive**: Fully responsive design that works on all devices using Tailwind CSS
-- ⚡ **Fast**: Built with Vite for lightning-fast development and builds
-- 🎯 **Modern**: Uses React 18 with TypeScript for type safety
-- 🎭 **Interactive**: Smooth animations and hover effects with Tailwind utilities
-- 📧 **Contact Form**: Functional contact form for inquiries
-- 🎨 **Tailwind CSS**: Modern utility-first CSS framework for consistent, maintainable styling
+```
+bigdays-monorepo/
+├── apps/
+│   ├── frontend/          # React frontend application
+│   └── backend/           # AWS Amplify backend with NestJS
+├── packages/              # Shared packages (future use)
+├── pnpm-workspace.yaml    # pnpm workspace configuration
+└── package.json           # Root package.json
+```
 
-## Sections
-
-- **Header**: Navigation with logo and social links
-- **Hero**: Stunning hero section with call-to-action
-- **Locations**: Grid of beautiful Italian locations
-- **Featured Venues**: Showcase of premium wedding venues
-- **Services**: Photography, ceremony, and wedding design services
-- **Portfolio**: Gallery of happy couples
-- **Testimonials**: Customer reviews and feedback
-- **Contact**: Contact form and company information
-- **Footer**: Additional links and social media
-
-## Getting Started
+## 🚀 Getting Started
 
 ### Prerequisites
 
-- Node.js (version 16 or higher)
-- npm or yarn
+- Node.js >= 18.0.0
+- pnpm >= 8.0.0
 
 ### Installation
 
-1. Clone the repository:
-```bash
-git clone <repository-url>
-cd bigdays-my
-```
+1. Install pnpm globally (if not already installed):
+   ```bash
+   npm install -g pnpm
+   ```
 
 2. Install dependencies:
+   ```bash
+   pnpm install
+   ```
+
+### Development
+
+#### Run both frontend and backend in development mode:
 ```bash
-npm install
+pnpm dev
 ```
 
-3. Start the development server:
+#### Run individual applications:
 ```bash
-npm run dev
+# Frontend only
+pnpm frontend:dev
+
+# Backend only
+pnpm backend:dev
 ```
 
-4. Open your browser and visit `http://localhost:5173`
+### Building
 
-### Building for Production
-
+#### Build all applications:
 ```bash
-npm run build
+pnpm build
 ```
 
-The built files will be in the `dist` directory.
+#### Build individual applications:
+```bash
+# Frontend only
+pnpm frontend:build
 
-## Technologies Used
+# Backend only
+pnpm backend:build
+```
 
-- **React 18**: Modern React with hooks
-- **TypeScript**: Type-safe JavaScript
-- **Vite**: Fast build tool and dev server
-- **Tailwind CSS**: Utility-first CSS framework for rapid styling
-- **Lucide React**: Beautiful icons
-- **PostCSS**: CSS processing with Autoprefixer
+### Deployment
 
-## Color Scheme
+#### Deploy backend to AWS Amplify:
+```bash
+pnpm backend:deploy
+```
 
-- Primary Green: `#4a5d23`
-- Secondary Green: `#6b7c47`
-- Dark Gray: `#2c2c2c`
-- Light Gray: `#f5f5f5`
-- White: `#ffffff`
-- Cream: `#fafafa`
+## 📦 Available Scripts
 
-## Fonts
+- `pnpm dev` - Start both frontend and backend in development mode
+- `pnpm build` - Build all applications
+- `pnpm lint` - Lint all applications
+- `pnpm clean` - Clean all build artifacts
+- `pnpm frontend:dev` - Start frontend development server
+- `pnpm frontend:build` - Build frontend application
+- `pnpm backend:dev` - Start backend development server
+- `pnpm backend:build` - Build backend application
+- `pnpm backend:deploy` - Deploy backend to AWS Amplify
 
-- **Headings**: Playfair Display (elegant serif)
-- **Body Text**: Inter (clean sans-serif)
+## 🛠️ Technology Stack
 
-## Contributing
+### Frontend
+- React 18
+- TypeScript
+- Vite
+- Tailwind CSS
+- React Spring
+- Lucide React
 
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Commit your changes
-5. Push to the branch
-6. Create a Pull Request
+### Backend
+- AWS Amplify Gen 2
+- NestJS
+- TypeScript
+- Express
 
-## License
+## 📁 Apps
 
-This project is licensed under the MIT License - see the LICENSE file for details.
+### Frontend (`apps/frontend`)
+The main React application with wedding landing page components.
+
+### Backend (`apps/backend`)
+AWS Amplify backend with NestJS API functions.
+
+## 🔧 Configuration
+
+- `pnpm-workspace.yaml` - Defines workspace packages
+- `.npmrc` - pnpm configuration
+- `amplify.yml` - AWS Amplify build configuration
+
+## 🚀 Deployment
+
+The project is configured for deployment on AWS Amplify with:
+- Automatic frontend builds from the `apps/frontend` directory
+- Backend deployment using AWS Amplify Gen 2
+- pnpm workspace support in the build process
+
+## 📝 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.

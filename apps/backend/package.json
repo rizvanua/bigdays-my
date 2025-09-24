@@ -1,0 +1,20 @@
+{
+  "name": "@bigdays/backend",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "amplify sandbox",
+    "build": "amplify build",
+    "deploy": "amplify deploy"
+  },
+  "dependencies": {
+    "@aws-amplify/backend": "^1.0.0",
+    "@aws-amplify/backend-cli": "^1.0.0",
+    "esbuild": "^0.25.10"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "typescript": "^5.0.0"
+  }
+}

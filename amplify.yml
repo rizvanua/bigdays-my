@@ -1,0 +1,32 @@
+version: 1
+backend:
+  phases:
+    build:
+      commands:
+        - '# Install pnpm'
+        - npm install -g pnpm
+        - '# Install dependencies'
+        - pnpm install
+        - '# Execute Amplify CLI with the helper script'
+        - cd apps/backend && amplifyPush --simple
+frontend:
+  phases:
+    preBuild:
+      commands:
+        - '# Install pnpm'
+        - npm install -g pnpm
+        - '# Install dependencies'
+        - pnpm install
+    build:
+      commands:
+        - '# Build frontend'
+        - pnpm --filter @bigdays/frontend build
+  artifacts:
+    # IMPORTANT - Please verify your build output directory
+    baseDirectory: apps/frontend/dist
+    files:
+      - '**/*'
+  cache:
+    paths:
+      - node_modules/**/*
+      - .pnpm-store/**/*
