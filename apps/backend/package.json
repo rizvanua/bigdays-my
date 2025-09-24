@@ -5,14 +5,16 @@
   "type": "module",
   "scripts": {
     "dev": "amplify sandbox",
-    "deploy": "ampx pipeline-deploy"
+    "deploy": "ampx pipeline-deploy",
+    "sandbox": "ampx sandbox",
+    "sandbox:once": "ampx sandbox --once"
   },
   "dependencies": {
-    "@aws-amplify/backend": "^1.0.0",
     "@aws-amplify/backend-cli": "^1.0.0",
     "esbuild": "^0.25.10"
   },
   "devDependencies": {
+    "@aws-amplify/backend": "^1.16.1",
     "@types/node": "^20.0.0",
     "typescript": "^5.0.0"
   }
