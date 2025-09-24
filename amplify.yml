@@ -6,9 +6,9 @@ applications:
         build:
           commands:
             - npm install -g pnpm@8
+            - pnpm install --frozen-lockfile
             - pnpm add -D @aws-amplify/backend
             - npx ampx generate
-            # Deploy backend for this branch/app
             - npx ampx pipeline-deploy --app-id d1c8whcw05ye14 --branch $AWS_BRANCH
     frontend:
       phases:
