@@ -8,8 +8,8 @@ applications:
             - "echo Backend: installing pnpm and dependencies"
             - "npm install -g pnpm@8"
             - "pnpm install --frozen-lockfile"
-            - "echo Backend: generating Amplify outputs"
-            - "npx ampx generate"
+            - "echo Backend: generating amplify_outputs.json"
+            - "npx ampx generate outputs"
             - "echo Backend: pipeline deploy for branch $AWS_BRANCH"
             - "npx ampx pipeline-deploy --app-id d1c8whcw05ye14 --branch $AWS_BRANCH"
     frontend:
