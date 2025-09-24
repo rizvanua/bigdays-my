@@ -5,8 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "amplify sandbox",
-    "build": "amplify build",
-    "deploy": "amplify deploy"
+    "deploy": "ampx pipeline-deploy"
   },
   "dependencies": {
     "@aws-amplify/backend": "^1.0.0",

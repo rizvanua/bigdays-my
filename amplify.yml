@@ -8,7 +8,7 @@ backend:
         - '# Install dependencies'
         - pnpm install
         - '# Build backend (this will create the necessary artifacts)'
-        - cd apps/backend && pnpm build
+        - cd apps/backend && pnpm deploy
 frontend:
   phases:
     preBuild:
