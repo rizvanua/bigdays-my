@@ -10,7 +10,7 @@ applications:
           commands:
             - "echo Backend: installing pnpm"
             - "npm install -g pnpm@8"
-            - "echo Backend: installing workspace deps (prod=false to include dev if needed)"
+            - "echo Backend: installing workspace"
             - "pnpm install --frozen-lockfile --prod=false"
             - "echo Backend: checking ampx via pnpm dlx"
             - "pnpm dlx @aws-amplify/backend ampx --version"
