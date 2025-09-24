@@ -1,4 +1,14 @@
 version: 1
+backend:
+  phases:
+    build:
+      commands:
+        - '# Install pnpm'
+        - npm install -g pnpm
+        - '# Install dependencies'
+        - pnpm install
+        - '# Build backend (this will create the necessary artifacts)'
+        - cd apps/backend && pnpm build
 frontend:
   phases:
     preBuild:
@@ -7,6 +17,8 @@ frontend:
         - npm install -g pnpm
         - '# Install dependencies'
         - pnpm install
+        - '# Copy backend outputs to frontend'
+        - cp apps/backend/amplify_outputs.json apps/frontend/src/ 2>/dev/null || echo "Backend outputs not found, continuing..."
     build:
       commands:
         - '# Build frontend'
