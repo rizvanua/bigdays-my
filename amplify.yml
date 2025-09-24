@@ -1,36 +1,31 @@
 version: 1
 applications:
   - appRoot: apps/backend
-    env:
-      variables:
-        NODE_ENV: production
     backend:
       phases:
         build:
           commands:
-            - "echo 🔧 Backend: install pnpm & deps"
+            - "echo Backend: installing pnpm and dependencies"
             - "npm install -g pnpm@8"
             - "pnpm install --frozen-lockfile"
-            - "echo 📂 PWD=$(pwd); ls -la"
-            - "echo 🧰 ampx version && npx ampx --version || true"
-            - "echo 📦 Generate outputs"
+            - "echo Backend: generating Amplify outputs"
             - "npx ampx generate"
-            - "echo 🚀 Deploy backend for branch: $AWS_BRANCH (app d1c8whcw05ye14)"
+            - "echo Backend: pipeline deploy for branch $AWS_BRANCH"
             - "npx ampx pipeline-deploy --app-id d1c8whcw05ye14 --branch $AWS_BRANCH"
     frontend:
       phases:
         preBuild:
           commands:
-            - "echo 🔧 Frontend: install pnpm & deps"
+            - "echo Frontend: installing pnpm and dependencies"
             - "npm install -g pnpm@8"
             - "pnpm install --frozen-lockfile"
             - "cd ../frontend && pnpm install --frozen-lockfile"
         build:
           commands:
-            - "echo 🏗️ Build frontend"
+            - "echo Frontend: building app"
             - "cd ../frontend && pnpm build"
       artifacts:
-        baseDirectory: ../frontend/dist   # change if Next.js: .next
+        baseDirectory: ../frontend/dist   # change to .next if Next.js
         files:
           - '**/*'
       cache:
