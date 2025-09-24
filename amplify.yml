@@ -3,21 +3,19 @@ applications:
   - appRoot: apps/backend
     env:
       variables:
-        AWS_REGION: eu-central-1   # force region
+        AWS_REGION: eu-central-1
     backend:
       phases:
         build:
           commands:
             - "echo Backend: installing pnpm"
             - "npm install -g pnpm@8"
-            - "echo Backend: installing workspace"
+            - "echo Backend: installing workspace deps"
             - "pnpm install --frozen-lockfile --prod=false"
-            - "echo Backend: checking ampx via pnpm dlx"
-            - "pnpm dlx @aws-amplify/backend ampx --version"
             - "echo Backend: pipeline deploy for branch $AWS_BRANCH app d1c8whcw05ye14"
-            - "pnpm dlx @aws-amplify/backend ampx pipeline-deploy --app-id d1c8whcw05ye14 --branch $AWS_BRANCH"
-            - "echo Backend: generate amplify outputs json"
-            - "pnpm dlx @aws-amplify/backend ampx generate outputs --app-id d1c8whcw05ye14 --branch $AWS_BRANCH --format json"
+            - "npx -y -p @aws-amplify/backend ampx pipeline-deploy --app-id d1c8whcw05ye14 --branch $AWS_BRANCH"
+            - "echo Backend: generate amplify outputs"
+            - "npx -y -p @aws-amplify/backend ampx generate outputs --app-id d1c8whcw05ye14 --branch $AWS_BRANCH --format json"
     frontend:
       phases:
         preBuild:
@@ -31,7 +29,7 @@ applications:
             - "echo Frontend: building app"
             - "cd ../frontend && pnpm build"
       artifacts:
-        baseDirectory: ../frontend/dist     # change to .next for Next.js
+        baseDirectory: ../frontend/dist   # change to .next for Next.js
         files:
           - '**/*'
       cache:
