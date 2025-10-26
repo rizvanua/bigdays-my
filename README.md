@@ -1,4 +1,4 @@
-# BigDays Wedding Landing - Monorepo
+# BigDays Wedding Landing - Monorepo-
 
 A modern wedding landing page built with React, TypeScript, and AWS Amplify, organized as a monorepo using pnpm.
 
