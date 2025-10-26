@@ -1,15 +1,520 @@
 {
  "Description": "{\"createdOn\":\"Mac\",\"createdBy\":\"AmplifySandbox\",\"createdWith\":\"1.16.1\",\"stackType\":\"custom\",\"metadata\":{}}",
  "Resources": {
+  "BigDaysApiB063EBDD": {
+   "Type": "AWS::ApiGateway::RestApi",
+   "Properties": {
+    "Description": "API for BigDays Wedding Landing Page",
+    "Name": "BigDays Wedding API",
+    "Tags": [
+     {
+      "Key": "amplify:deployment-type",
+      "Value": "sandbox"
+     },
+     {
+      "Key": "created-by",
+      "Value": "amplify"
+     }
+    ]
+   },
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "amplify-bigdaysbackend-admin-sandbox-b2b31854a6/api-stack/BigDaysApi/Resource"
+   }
+  },
+  "BigDaysApiCloudWatchRoleCF712CF8": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "apigateway.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "ManagedPolicyArns": [
+     {
+      "Fn::Join": [
+       "",
+       [
+        "arn:",
+        {
+         "Ref": "AWS::Partition"
+        },
+        ":iam::aws:policy/service-role/AmazonAPIGatewayPushToCloudWatchLogs"
+       ]
+      ]
+     }
+    ],
+    "Tags": [
+     {
+      "Key": "amplify:deployment-type",
+      "Value": "sandbox"
+     },
+     {
+      "Key": "created-by",
+      "Value": "amplify"
+     }
+    ]
+   },
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "amplify-bigdaysbackend-admin-sandbox-b2b31854a6/api-stack/BigDaysApi/CloudWatchRole/Resource"
+   }
+  },
+  "BigDaysApiAccount31D4F8E3": {
+   "Type": "AWS::ApiGateway::Account",
+   "Properties": {
+    "CloudWatchRoleArn": {
+     "Fn::GetAtt": [
+      "BigDaysApiCloudWatchRoleCF712CF8",
+      "Arn"
+     ]
+    }
+   },
+   "DependsOn": [
+    "BigDaysApiB063EBDD"
+   ],
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "amplify-bigdaysbackend-admin-sandbox-b2b31854a6/api-stack/BigDaysApi/Account"
+   }
+  },
+  "BigDaysApiDeploymentADFDA146fc1c99004f604d3dd17c4343ded31cd2": {
+   "Type": "AWS::ApiGateway::Deployment",
+   "Properties": {
+    "Description": "API for BigDays Wedding Landing Page",
+    "RestApiId": {
+     "Ref": "BigDaysApiB063EBDD"
+    }
+   },
+   "DependsOn": [
+    "BigDaysApiapiproxyANY211C0A71",
+    "BigDaysApiapiproxyOPTIONSA6AA51A1",
+    "BigDaysApiapiproxyE6D51676",
+    "BigDaysApiapiOPTIONS169CC360",
+    "BigDaysApiapi7605CAA9",
+    "BigDaysApiOPTIONS53BCD6AF"
+   ],
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "amplify-bigdaysbackend-admin-sandbox-b2b31854a6/api-stack/BigDaysApi/Deployment/Resource",
+    "aws:cdk:do-not-refactor": true
+   }
+  },
+  "BigDaysApiDeploymentStageprod501B084D": {
+   "Type": "AWS::ApiGateway::Stage",
+   "Properties": {
+    "DeploymentId": {
+     "Ref": "BigDaysApiDeploymentADFDA146fc1c99004f604d3dd17c4343ded31cd2"
+    },
+    "MethodSettings": [
+     {
+      "DataTraceEnabled": true,
+      "HttpMethod": "*",
+      "LoggingLevel": "INFO",
+      "MetricsEnabled": true,
+      "ResourcePath": "/*"
+     }
+    ],
+    "RestApiId": {
+     "Ref": "BigDaysApiB063EBDD"
+    },
+    "StageName": "prod",
+    "Tags": [
+     {
+      "Key": "amplify:deployment-type",
+      "Value": "sandbox"
+     },
+     {
+      "Key": "created-by",
+      "Value": "amplify"
+     }
+    ]
+   },
+   "DependsOn": [
+    "BigDaysApiAccount31D4F8E3"
+   ],
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "amplify-bigdaysbackend-admin-sandbox-b2b31854a6/api-stack/BigDaysApi/DeploymentStage.prod/Resource"
+   }
+  },
+  "BigDaysApiOPTIONS53BCD6AF": {
+   "Type": "AWS::ApiGateway::Method",
+   "Properties": {
+    "ApiKeyRequired": false,
+    "AuthorizationType": "NONE",
+    "HttpMethod": "OPTIONS",
+    "Integration": {
+     "IntegrationResponses": [
+      {
+       "ResponseParameters": {
+        "method.response.header.Access-Control-Allow-Headers": "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,X-Amz-User-Agent'",
+        "method.response.header.Access-Control-Allow-Origin": "'*'",
+        "method.response.header.Access-Control-Allow-Methods": "'OPTIONS,GET,PUT,POST,DELETE,PATCH,HEAD'",
+        "method.response.header.Access-Control-Allow-Credentials": "'true'"
+       },
+       "StatusCode": "204"
+      }
+     ],
+     "RequestTemplates": {
+      "application/json": "{ statusCode: 200 }"
+     },
+     "Type": "MOCK"
+    },
+    "MethodResponses": [
+     {
+      "ResponseParameters": {
+       "method.response.header.Access-Control-Allow-Headers": true,
+       "method.response.header.Access-Control-Allow-Origin": true,
+       "method.response.header.Access-Control-Allow-Methods": true,
+       "method.response.header.Access-Control-Allow-Credentials": true
+      },
+      "StatusCode": "204"
+     }
+    ],
+    "ResourceId": {
+     "Fn::GetAtt": [
+      "BigDaysApiB063EBDD",
+      "RootResourceId"
+     ]
+    },
+    "RestApiId": {
+     "Ref": "BigDaysApiB063EBDD"
+    }
+   },
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "amplify-bigdaysbackend-admin-sandbox-b2b31854a6/api-stack/BigDaysApi/Default/OPTIONS/Resource"
+   }
+  },
+  "BigDaysApiapi7605CAA9": {
+   "Type": "AWS::ApiGateway::Resource",
+   "Properties": {
+    "ParentId": {
+     "Fn::GetAtt": [
+      "BigDaysApiB063EBDD",
+      "RootResourceId"
+     ]
+    },
+    "PathPart": "api",
+    "RestApiId": {
+     "Ref": "BigDaysApiB063EBDD"
+    }
+   },
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "amplify-bigdaysbackend-admin-sandbox-b2b31854a6/api-stack/BigDaysApi/Default/api/Resource"
+   }
+  },
+  "BigDaysApiapiOPTIONS169CC360": {
+   "Type": "AWS::ApiGateway::Method",
+   "Properties": {
+    "ApiKeyRequired": false,
+    "AuthorizationType": "NONE",
+    "HttpMethod": "OPTIONS",
+    "Integration": {
+     "IntegrationResponses": [
+      {
+       "ResponseParameters": {
+        "method.response.header.Access-Control-Allow-Headers": "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,X-Amz-User-Agent'",
+        "method.response.header.Access-Control-Allow-Origin": "'*'",
+        "method.response.header.Access-Control-Allow-Methods": "'OPTIONS,GET,PUT,POST,DELETE,PATCH,HEAD'",
+        "method.response.header.Access-Control-Allow-Credentials": "'true'"
+       },
+       "StatusCode": "204"
+      }
+     ],
+     "RequestTemplates": {
+      "application/json": "{ statusCode: 200 }"
+     },
+     "Type": "MOCK"
+    },
+    "MethodResponses": [
+     {
+      "ResponseParameters": {
+       "method.response.header.Access-Control-Allow-Headers": true,
+       "method.response.header.Access-Control-Allow-Origin": true,
+       "method.response.header.Access-Control-Allow-Methods": true,
+       "method.response.header.Access-Control-Allow-Credentials": true
+      },
+      "StatusCode": "204"
+     }
+    ],
+    "ResourceId": {
+     "Ref": "BigDaysApiapi7605CAA9"
+    },
+    "RestApiId": {
+     "Ref": "BigDaysApiB063EBDD"
+    }
+   },
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "amplify-bigdaysbackend-admin-sandbox-b2b31854a6/api-stack/BigDaysApi/Default/api/OPTIONS/Resource"
+   }
+  },
+  "BigDaysApiapiproxyE6D51676": {
+   "Type": "AWS::ApiGateway::Resource",
+   "Properties": {
+    "ParentId": {
+     "Ref": "BigDaysApiapi7605CAA9"
+    },
+    "PathPart": "{proxy+}",
+    "RestApiId": {
+     "Ref": "BigDaysApiB063EBDD"
+    }
+   },
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "amplify-bigdaysbackend-admin-sandbox-b2b31854a6/api-stack/BigDaysApi/Default/api/{proxy+}/Resource"
+   }
+  },
+  "BigDaysApiapiproxyOPTIONSA6AA51A1": {
+   "Type": "AWS::ApiGateway::Method",
+   "Properties": {
+    "ApiKeyRequired": false,
+    "AuthorizationType": "NONE",
+    "HttpMethod": "OPTIONS",
+    "Integration": {
+     "IntegrationResponses": [
+      {
+       "ResponseParameters": {
+        "method.response.header.Access-Control-Allow-Headers": "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,X-Amz-User-Agent'",
+        "method.response.header.Access-Control-Allow-Origin": "'*'",
+        "method.response.header.Access-Control-Allow-Methods": "'OPTIONS,GET,PUT,POST,DELETE,PATCH,HEAD'",
+        "method.response.header.Access-Control-Allow-Credentials": "'true'"
+       },
+       "StatusCode": "204"
+      }
+     ],
+     "RequestTemplates": {
+      "application/json": "{ statusCode: 200 }"
+     },
+     "Type": "MOCK"
+    },
+    "MethodResponses": [
+     {
+      "ResponseParameters": {
+       "method.response.header.Access-Control-Allow-Headers": true,
+       "method.response.header.Access-Control-Allow-Origin": true,
+       "method.response.header.Access-Control-Allow-Methods": true,
+       "method.response.header.Access-Control-Allow-Credentials": true
+      },
+      "StatusCode": "204"
+     }
+    ],
+    "ResourceId": {
+     "Ref": "BigDaysApiapiproxyE6D51676"
+    },
+    "RestApiId": {
+     "Ref": "BigDaysApiB063EBDD"
+    }
+   },
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "amplify-bigdaysbackend-admin-sandbox-b2b31854a6/api-stack/BigDaysApi/Default/api/{proxy+}/OPTIONS/Resource"
+   }
+  },
+  "BigDaysApiapiproxyANYApiPermissionamplifybigdaysbackendadminsandboxb2b31854a6apistackBigDaysApiC501373AANYapiproxy4D845433": {
+   "Type": "AWS::Lambda::Permission",
+   "Properties": {
+    "Action": "lambda:InvokeFunction",
+    "FunctionName": {
+     "Ref": "referencetoamplifybigdaysbackendadminsandboxb2b31854a6functionNestedStackfunctionNestedStackResource183B12F8Outputsamplifybigdaysbackendadminsandboxb2b31854a6functionnestapilambda6024D882Arn"
+    },
+    "Principal": "apigateway.amazonaws.com",
+    "SourceArn": {
+     "Fn::Join": [
+      "",
+      [
+       "arn:",
+       {
+        "Ref": "AWS::Partition"
+       },
+       ":execute-api:",
+       {
+        "Ref": "AWS::Region"
+       },
+       ":",
+       {
+        "Ref": "AWS::AccountId"
+       },
+       ":",
+       {
+        "Ref": "BigDaysApiB063EBDD"
+       },
+       "/",
+       {
+        "Ref": "BigDaysApiDeploymentStageprod501B084D"
+       },
+       "/*/api/*"
+      ]
+     ]
+    }
+   },
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "amplify-bigdaysbackend-admin-sandbox-b2b31854a6/api-stack/BigDaysApi/Default/api/{proxy+}/ANY/ApiPermission.amplifybigdaysbackendadminsandboxb2b31854a6apistackBigDaysApiC501373A.ANY..api.{proxy+}"
+   }
+  },
+  "BigDaysApiapiproxyANYApiPermissionTestamplifybigdaysbackendadminsandboxb2b31854a6apistackBigDaysApiC501373AANYapiproxyE869579B": {
+   "Type": "AWS::Lambda::Permission",
+   "Properties": {
+    "Action": "lambda:InvokeFunction",
+    "FunctionName": {
+     "Ref": "referencetoamplifybigdaysbackendadminsandboxb2b31854a6functionNestedStackfunctionNestedStackResource183B12F8Outputsamplifybigdaysbackendadminsandboxb2b31854a6functionnestapilambda6024D882Arn"
+    },
+    "Principal": "apigateway.amazonaws.com",
+    "SourceArn": {
+     "Fn::Join": [
+      "",
+      [
+       "arn:",
+       {
+        "Ref": "AWS::Partition"
+       },
+       ":execute-api:",
+       {
+        "Ref": "AWS::Region"
+       },
+       ":",
+       {
+        "Ref": "AWS::AccountId"
+       },
+       ":",
+       {
+        "Ref": "BigDaysApiB063EBDD"
+       },
+       "/test-invoke-stage/*/api/*"
+      ]
+     ]
+    }
+   },
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "amplify-bigdaysbackend-admin-sandbox-b2b31854a6/api-stack/BigDaysApi/Default/api/{proxy+}/ANY/ApiPermission.Test.amplifybigdaysbackendadminsandboxb2b31854a6apistackBigDaysApiC501373A.ANY..api.{proxy+}"
+   }
+  },
+  "BigDaysApiapiproxyANY211C0A71": {
+   "Type": "AWS::ApiGateway::Method",
+   "Properties": {
+    "AuthorizationType": "NONE",
+    "HttpMethod": "ANY",
+    "Integration": {
+     "IntegrationHttpMethod": "POST",
+     "IntegrationResponses": [
+      {
+       "ResponseParameters": {
+        "method.response.header.Access-Control-Allow-Origin": "'*'",
+        "method.response.header.Access-Control-Allow-Headers": "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token'",
+        "method.response.header.Access-Control-Allow-Methods": "'GET,POST,PUT,DELETE,OPTIONS'"
+       },
+       "StatusCode": "200"
+      }
+     ],
+     "RequestTemplates": {
+      "application/json": "{\"httpMethod\":\"$context.httpMethod\",\"path\":\"$context.path\",\"headers\":{\"$param\":\"$util.escapeJavaScript($input.params().header.get($param))\"},\"queryStringParameters\":{\"$param\":\"$util.escapeJavaScript($input.params().querystring.get($param))\"},\"body\":\"$input.body\",\"isBase64Encoded\":false,\"requestContext\":{\"requestId\":\"$context.requestId\",\"stage\":\"$context.stage\",\"httpMethod\":\"$context.httpMethod\",\"path\":\"$context.path\",\"resourcePath\":\"$context.resourcePath\",\"identity\":{\"sourceIp\":\"$context.identity.sourceIp\",\"userAgent\":\"$context.identity.userAgent\"}}}"
+     },
+     "Type": "AWS_PROXY",
+     "Uri": {
+      "Fn::Join": [
+       "",
+       [
+        "arn:",
+        {
+         "Ref": "AWS::Partition"
+        },
+        ":apigateway:",
+        {
+         "Ref": "AWS::Region"
+        },
+        ":lambda:path/2015-03-31/functions/",
+        {
+         "Ref": "referencetoamplifybigdaysbackendadminsandboxb2b31854a6functionNestedStackfunctionNestedStackResource183B12F8Outputsamplifybigdaysbackendadminsandboxb2b31854a6functionnestapilambda6024D882Arn"
+        },
+        "/invocations"
+       ]
+      ]
+     }
+    },
+    "MethodResponses": [
+     {
+      "ResponseParameters": {
+       "method.response.header.Access-Control-Allow-Origin": true,
+       "method.response.header.Access-Control-Allow-Headers": true,
+       "method.response.header.Access-Control-Allow-Methods": true
+      },
+      "StatusCode": "200"
+     }
+    ],
+    "ResourceId": {
+     "Ref": "BigDaysApiapiproxyE6D51676"
+    },
+    "RestApiId": {
+     "Ref": "BigDaysApiB063EBDD"
+    }
+   },
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "amplify-bigdaysbackend-admin-sandbox-b2b31854a6/api-stack/BigDaysApi/Default/api/{proxy+}/ANY/Resource"
+   }
+  },
   "CDKMetadata": {
    "Type": "AWS::CDK::Metadata",
    "Properties": {
-    "Analytics": "v2:deflate64:H4sIAAAAAAAA/zPSMzIy1DNQTCwv1k1OydbNyUzS80stLklNCS5JTM7WyctPSdXLKtYvMzLQM7TUM1LMKs7M1C0qzSvJzE3VC4LQAPyBDI5FAAAA"
+    "Analytics": "v2:deflate64:H4sIAAAAAAAA/1WNy27CQAxFv4X9xIXZsaR024KSD0BmxlDDPKLYQ4Si/HuVBiRY+dxzdWUL1q5gucBeKuevVeAjDD8kSr5RdFeDvRwGbPmMSj3eYahJdNOy2Z7SC26cyyWp+aI25HukpJN9SY3imSY3Q02SS+foE4XMN+lv9lP5oGf7ePLPo2GMMNQ5zDoHGk3AePQI21PaUxdZhHMa3+a7om3R0aTsCS7ycbNLWK3BLi7CXHUlKUeCer5/FTvy9g4BAAA="
    },
    "Metadata": {
     "aws:cdk:path": "amplify-bigdaysbackend-admin-sandbox-b2b31854a6/api-stack/CDKMetadata/Default"
    },
    "Condition": "CDKMetadataAvailable"
+  }
+ },
+ "Outputs": {
+  "BigDaysApiEndpoint6C480B98": {
+   "Value": {
+    "Fn::Join": [
+     "",
+     [
+      "https://",
+      {
+       "Ref": "BigDaysApiB063EBDD"
+      },
+      ".execute-api.",
+      {
+       "Ref": "AWS::Region"
+      },
+      ".",
+      {
+       "Ref": "AWS::URLSuffix"
+      },
+      "/",
+      {
+       "Ref": "BigDaysApiDeploymentStageprod501B084D"
+      },
+      "/"
+     ]
+    ]
+   }
   }
  },
  "Conditions": {
@@ -276,6 +781,11 @@
      ]
     }
    ]
+  }
+ },
+ "Parameters": {
+  "referencetoamplifybigdaysbackendadminsandboxb2b31854a6functionNestedStackfunctionNestedStackResource183B12F8Outputsamplifybigdaysbackendadminsandboxb2b31854a6functionnestapilambda6024D882Arn": {
+   "Type": "String"
   }
  }
 }

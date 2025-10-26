@@ -457,6 +457,14 @@
    "Value": {
     "Ref": "nestapilambda8FE1DF12"
    }
+  },
+  "amplifybigdaysbackendadminsandboxb2b31854a6functionnestapilambda6024D882Arn": {
+   "Value": {
+    "Fn::GetAtt": [
+     "nestapilambda8FE1DF12",
+     "Arn"
+    ]
+   }
   }
  }
 }

@@ -72,7 +72,7 @@
        {
         "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
        },
-       "/2e02b67046c15e435733dea599fb745ddbae33e89d37eb278a4c59008b6fce34.json"
+       "/24a1414608362e3d4f6b2b7d2e9fa24f799e2700e477eedc7b504d8e4cea1081.json"
       ]
      ]
     }
@@ -88,6 +88,14 @@
   "apistack7B433BC7": {
    "Type": "AWS::CloudFormation::Stack",
    "Properties": {
+    "Parameters": {
+     "referencetoamplifybigdaysbackendadminsandboxb2b31854a6functionNestedStackfunctionNestedStackResource183B12F8Outputsamplifybigdaysbackendadminsandboxb2b31854a6functionnestapilambda6024D882Arn": {
+      "Fn::GetAtt": [
+       "function1351588B",
+       "Outputs.amplifybigdaysbackendadminsandboxb2b31854a6functionnestapilambda6024D882Arn"
+      ]
+     }
+    },
     "Tags": [
      {
       "Key": "amplify:deployment-type",
@@ -114,7 +122,7 @@
        {
         "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
        },
-       "/5f1a2ddd75c6a6a269f49ae7d3488a305da41f5ea5a7ab244747b21bc526a39d.json"
+       "/2a733ec6335e31beb1aa0727c17495908acbe22022b02af69157e9e525799df0.json"
       ]
      ]
     }

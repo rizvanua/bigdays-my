@@ -22,7 +22,7 @@
         "validateOnSynth": false,
         "assumeRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-deploy-role-${AWS::AccountId}-${AWS::Region}",
         "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-cfn-exec-role-${AWS::AccountId}-${AWS::Region}",
-        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/fb3237f0f79ca02cdc23436560325105a5cec859e5c25806f603bd24772283c8.json",
+        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/95ad294623ee1eea1ee124a654b08e5d151a4c54729131d16016c602045c2950.json",
         "requiresBootstrapStackVersion": 6,
         "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version",
         "additionalDependencies": [
@@ -101,6 +101,12 @@
             "data": "amplifybigdaysbackendadminsandboxb2b31854a6functionnestapilambda6024D882Ref"
           }
         ],
+        "/amplify-bigdaysbackend-admin-sandbox-b2b31854a6/function/amplifybigdaysbackendadminsandboxb2b31854a6functionnestapilambda6024D882Arn": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "amplifybigdaysbackendadminsandboxb2b31854a6functionnestapilambda6024D882Arn"
+          }
+        ],
         "/amplify-bigdaysbackend-admin-sandbox-b2b31854a6/function.NestedStack/function.NestedStackResource": [
           {
             "type": "aws:cdk:logicalId",
@@ -113,6 +119,90 @@
             "data": "definedFunctions"
           }
         ],
+        "/amplify-bigdaysbackend-admin-sandbox-b2b31854a6/api-stack/BigDaysApi/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "BigDaysApiB063EBDD"
+          }
+        ],
+        "/amplify-bigdaysbackend-admin-sandbox-b2b31854a6/api-stack/BigDaysApi/CloudWatchRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "BigDaysApiCloudWatchRoleCF712CF8"
+          }
+        ],
+        "/amplify-bigdaysbackend-admin-sandbox-b2b31854a6/api-stack/BigDaysApi/Account": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "BigDaysApiAccount31D4F8E3"
+          }
+        ],
+        "/amplify-bigdaysbackend-admin-sandbox-b2b31854a6/api-stack/BigDaysApi/Deployment/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "BigDaysApiDeploymentADFDA146fc1c99004f604d3dd17c4343ded31cd2"
+          }
+        ],
+        "/amplify-bigdaysbackend-admin-sandbox-b2b31854a6/api-stack/BigDaysApi/DeploymentStage.prod/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "BigDaysApiDeploymentStageprod501B084D"
+          }
+        ],
+        "/amplify-bigdaysbackend-admin-sandbox-b2b31854a6/api-stack/BigDaysApi/Endpoint": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "BigDaysApiEndpoint6C480B98"
+          }
+        ],
+        "/amplify-bigdaysbackend-admin-sandbox-b2b31854a6/api-stack/BigDaysApi/Default/OPTIONS/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "BigDaysApiOPTIONS53BCD6AF"
+          }
+        ],
+        "/amplify-bigdaysbackend-admin-sandbox-b2b31854a6/api-stack/BigDaysApi/Default/api/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "BigDaysApiapi7605CAA9"
+          }
+        ],
+        "/amplify-bigdaysbackend-admin-sandbox-b2b31854a6/api-stack/BigDaysApi/Default/api/OPTIONS/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "BigDaysApiapiOPTIONS169CC360"
+          }
+        ],
+        "/amplify-bigdaysbackend-admin-sandbox-b2b31854a6/api-stack/BigDaysApi/Default/api/{proxy+}/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "BigDaysApiapiproxyE6D51676"
+          }
+        ],
+        "/amplify-bigdaysbackend-admin-sandbox-b2b31854a6/api-stack/BigDaysApi/Default/api/{proxy+}/OPTIONS/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "BigDaysApiapiproxyOPTIONSA6AA51A1"
+          }
+        ],
+        "/amplify-bigdaysbackend-admin-sandbox-b2b31854a6/api-stack/BigDaysApi/Default/api/{proxy+}/ANY/ApiPermission.amplifybigdaysbackendadminsandboxb2b31854a6apistackBigDaysApiC501373A.ANY..api.{proxy+}": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "BigDaysApiapiproxyANYApiPermissionamplifybigdaysbackendadminsandboxb2b31854a6apistackBigDaysApiC501373AANYapiproxy4D845433"
+          }
+        ],
+        "/amplify-bigdaysbackend-admin-sandbox-b2b31854a6/api-stack/BigDaysApi/Default/api/{proxy+}/ANY/ApiPermission.Test.amplifybigdaysbackendadminsandboxb2b31854a6apistackBigDaysApiC501373A.ANY..api.{proxy+}": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "BigDaysApiapiproxyANYApiPermissionTestamplifybigdaysbackendadminsandboxb2b31854a6apistackBigDaysApiC501373AANYapiproxyE869579B"
+          }
+        ],
+        "/amplify-bigdaysbackend-admin-sandbox-b2b31854a6/api-stack/BigDaysApi/Default/api/{proxy+}/ANY/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "BigDaysApiapiproxyANY211C0A71"
+          }
+        ],
         "/amplify-bigdaysbackend-admin-sandbox-b2b31854a6/api-stack/CDKMetadata/Default": [
           {
             "type": "aws:cdk:logicalId",
@@ -123,6 +213,12 @@
           {
             "type": "aws:cdk:logicalId",
             "data": "CDKMetadataAvailable"
+          }
+        ],
+        "/amplify-bigdaysbackend-admin-sandbox-b2b31854a6/api-stack/reference-to-amplifybigdaysbackendadminsandboxb2b31854a6functionNestedStackfunctionNestedStackResource183B12F8Outputs.amplifybigdaysbackendadminsandboxb2b31854a6functionnestapilambda6024D882Arn": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "referencetoamplifybigdaysbackendadminsandboxb2b31854a6functionNestedStackfunctionNestedStackResource183B12F8Outputsamplifybigdaysbackendadminsandboxb2b31854a6functionnestapilambda6024D882Arn"
           }
         ],
         "/amplify-bigdaysbackend-admin-sandbox-b2b31854a6/api-stack.NestedStack/api-stack.NestedStackResource": [

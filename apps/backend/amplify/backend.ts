@@ -158,19 +158,19 @@ const lambdaIntegration = new LambdaIntegration(
 const apiPath = restApi.root.addResource("api");
 
 // Health endpoint
-const healthPath = apiPath.addResource("health");
-healthPath.addMethod("GET", lambdaIntegration, {
-  methodResponses: [
-    {
-      statusCode: "200",
-      responseParameters: {
-        "method.response.header.Access-Control-Allow-Origin": true,
-        "method.response.header.Access-Control-Allow-Headers": true,
-        "method.response.header.Access-Control-Allow-Methods": true,
-      },
-    },
-  ],
-});
+// const healthPath = apiPath.addResource("health");
+// healthPath.addMethod("GET", lambdaIntegration, {
+//   methodResponses: [
+//     {
+//       statusCode: "200",
+//       responseParameters: {
+//         "method.response.header.Access-Control-Allow-Origin": true,
+//         "method.response.header.Access-Control-Allow-Headers": true,
+//         "method.response.header.Access-Control-Allow-Methods": true,
+//       },
+//     },
+//   ],
+// });
 
 // Catch-all proxy route for NestJS routing
 const proxyPath = apiPath.addResource("{proxy+}");
