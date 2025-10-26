@@ -118,3 +118,11 @@ aws-exports.ts
 awsconfiguration.json
 awsconfiguration.js
 awsconfiguration.ts
+
+# CDK/Amplify build artifacts
+**/cdk.out/
+**/artifacts/
+**/.amplify/
+**/node_modules/
+**/dist/
+**/build/
