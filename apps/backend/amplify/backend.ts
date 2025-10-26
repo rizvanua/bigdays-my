@@ -187,18 +187,6 @@ proxyPath.addMethod("ANY", lambdaIntegration, {
   ],
 });
 
-// Add OPTIONS method for CORS preflight
-const optionsMethod = proxyPath.addMethod("OPTIONS", lambdaIntegration, {
-  methodResponses: [
-    {
-      statusCode: "200",
-      responseParameters: {
-        "method.response.header.Access-Control-Allow-Origin": true,
-        "method.response.header.Access-Control-Allow-Headers": true,
-        "method.response.header.Access-Control-Allow-Methods": true,
-      },
-    },
-  ],
-});
+// OPTIONS method is automatically handled by CORS configuration
 
 export default backend;
