@@ -126,7 +126,7 @@
      "S3Bucket": {
       "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
      },
-     "S3Key": "6cec3ab080abf9c1e3ff9b4939b118ebc3c6d5be766b329945d718d441b8bbcb.zip"
+     "S3Key": "ece9c4417fe011da152224513977f2ca9ebe38d11e8ee221caa345a3d814dea6.zip"
     },
     "Environment": {
      "Variables": {
@@ -170,7 +170,7 @@
    "DeletionPolicy": "Delete",
    "Metadata": {
     "aws:cdk:path": "amplify-bigdaysbackend-admin-sandbox-b2b31854a6/function/nest-api-lambda/Resource",
-    "aws:asset:path": "asset.6cec3ab080abf9c1e3ff9b4939b118ebc3c6d5be766b329945d718d441b8bbcb",
+    "aws:asset:path": "asset.ece9c4417fe011da152224513977f2ca9ebe38d11e8ee221caa345a3d814dea6",
     "aws:asset:is-bundled": true,
     "aws:asset:property": "Code"
    }
