@@ -52,7 +52,12 @@ export function createExpressApp() {
   app.get('/health', (req, res) => {
     res.json({ 
       ok: true, 
-      ts: Date.now() 
+      ts: Date.now(),
+      debug: {
+        path: req.path,
+        originalUrl: req.originalUrl,
+        url: req.url
+      }
     });
   });
 
