@@ -2,7 +2,7 @@
 import { NestFactory } from "@nestjs/core";
 import { AppModule } from "./src/app.module";
 import { json, urlencoded } from "express";
-import * as express from "express";
+import express from "express"; 
 
 export async function bootstrapNest() {
   const expressApp = express();
