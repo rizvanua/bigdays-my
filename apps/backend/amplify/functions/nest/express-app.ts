@@ -33,6 +33,22 @@ export function createExpressApp() {
     });
   });
 
+  app.get('/api', (req, res) => {
+    res.json({
+      message: 'Hello from BigDays API!',
+      timestamp: new Date().toISOString(),
+      path: req.path || '/api',
+      method: req.method || 'GET'
+    });
+  });
+
+  app.get('/api/health', (req, res) => {
+    res.json({ 
+      ok: true, 
+      ts: Date.now() 
+    });
+  });
+
   app.get('/health', (req, res) => {
     res.json({ 
       ok: true, 
