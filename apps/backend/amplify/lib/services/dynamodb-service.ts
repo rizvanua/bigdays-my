@@ -1,4 +1,4 @@
-// amplify/functions/nest/dynamodb-service.ts
+// amplify/lib/services/dynamodb-service.ts
 import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
 import {
   DynamoDBDocumentClient,
@@ -9,6 +9,7 @@ import {
   QueryCommand,
   ScanCommand,
 } from "@aws-sdk/lib-dynamodb";
+import { z } from "zod";
 
 // Initialize DynamoDB client
 const client = new DynamoDBClient({
@@ -27,9 +28,33 @@ export interface DynamoDBItem {
 
 export class DynamoDBService {
   /**
-   * Create or update an item in DynamoDB
+   * Create or update an item in DynamoDB with optional schema validation
+   * @param item - The item to put into DynamoDB
+   * @param schema - Optional Zod schema for validation
+   * @throws Error if validation fails
    */
-  static async putItem(item: DynamoDBItem): Promise<void> {
+  static async putItem(
+    item: DynamoDBItem,
+    schema?: z.ZodSchema
+  ): Promise<void> {
+    // Validate if schema is provided
+    if (schema) {
+      try {
+        schema.parse(item);
+      } catch (error) {
+        if (error instanceof z.ZodError) {
+          const errorMessages = error.errors
+            .map((e) => {
+              const path = e.path.join(".");
+              return `${path}: ${e.message}`;
+            })
+            .join(", ");
+          throw new Error(`Validation failed: ${errorMessages}`);
+        }
+        throw error;
+      }
+    }
+
     const command = new PutCommand({
       TableName: TABLE_NAME,
       Item: item,

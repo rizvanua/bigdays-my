@@ -1,7 +1,7 @@
 // amplify/functions/nest/express-app.ts
 import express from "express";
 import { json, urlencoded } from "express";
-import { DynamoDBService } from "./dynamodb-service";
+import { DynamoDBService, getSchemaForType, itemSchemas } from "../../lib/services";
 
 export function createExpressApp() {
   const app = express();
@@ -51,7 +51,7 @@ export function createExpressApp() {
   });
 
   // DynamoDB example routes
-  // Create or update an item
+  // Create or update an item with schema validation
   app.post('/items', async (req, res) => {
     try {
       const { id, type, ...rest } = req.body;
@@ -71,10 +71,125 @@ export function createExpressApp() {
         updatedAt: new Date().toISOString(),
       };
 
-      await DynamoDBService.putItem(item);
+      // Get schema based on type, or use default
+      const schema = getSchemaForType(type);
+      
+      // Validate and save
+      await DynamoDBService.putItem(item, schema);
       res.status(201).json({ success: true, item });
     } catch (error: any) {
       console.error('Error creating item:', error);
+      
+      // Check if it's a validation error
+      if (error.message?.startsWith('Validation failed:')) {
+        return res.status(400).json({
+          error: 'Validation Error',
+          message: error.message
+        });
+      }
+
+      res.status(500).json({
+        error: 'Internal Server Error',
+        message: error.message
+      });
+    }
+  });
+
+  // Type-specific routes with explicit schema validation
+  app.post('/items/venue', async (req, res) => {
+    try {
+      const item = {
+        ...req.body,
+        type: 'venue',
+        createdAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString(),
+      };
+
+      await DynamoDBService.putItem(item, itemSchemas.venue);
+      res.status(201).json({ success: true, item });
+    } catch (error: any) {
+      if (error.message?.startsWith('Validation failed:')) {
+        return res.status(400).json({
+          error: 'Validation Error',
+          message: error.message
+        });
+      }
+      res.status(500).json({
+        error: 'Internal Server Error',
+        message: error.message
+      });
+    }
+  });
+
+  app.post('/items/booking', async (req, res) => {
+    try {
+      const item = {
+        ...req.body,
+        type: 'booking',
+        createdAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString(),
+      };
+
+      await DynamoDBService.putItem(item, itemSchemas.booking);
+      res.status(201).json({ success: true, item });
+    } catch (error: any) {
+      if (error.message?.startsWith('Validation failed:')) {
+        return res.status(400).json({
+          error: 'Validation Error',
+          message: error.message
+        });
+      }
+      res.status(500).json({
+        error: 'Internal Server Error',
+        message: error.message
+      });
+    }
+  });
+
+  app.post('/items/profile', async (req, res) => {
+    try {
+      const item = {
+        ...req.body,
+        type: 'profile',
+        createdAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString(),
+      };
+
+      await DynamoDBService.putItem(item, itemSchemas.profile);
+      res.status(201).json({ success: true, item });
+    } catch (error: any) {
+      if (error.message?.startsWith('Validation failed:')) {
+        return res.status(400).json({
+          error: 'Validation Error',
+          message: error.message
+        });
+      }
+      res.status(500).json({
+        error: 'Internal Server Error',
+        message: error.message
+      });
+    }
+  });
+
+  app.post('/items/contact', async (req, res) => {
+    try {
+      const item = {
+        ...req.body,
+        type: 'contact',
+        status: req.body.status || 'new',
+        createdAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString(),
+      };
+
+      await DynamoDBService.putItem(item, itemSchemas.contact);
+      res.status(201).json({ success: true, item });
+    } catch (error: any) {
+      if (error.message?.startsWith('Validation failed:')) {
+        return res.status(400).json({
+          error: 'Validation Error',
+          message: error.message
+        });
+      }
       res.status(500).json({
         error: 'Internal Server Error',
         message: error.message
