@@ -67,6 +67,7 @@ import {
   MethodLoggingLevel,
   RestApi,
 } from "aws-cdk-lib/aws-apigateway";
+import { Table, AttributeType, BillingMode } from "aws-cdk-lib/aws-dynamodb";
 
 const nestApiFn = defineFunction({
   name: "nest-api",
@@ -82,6 +83,27 @@ const nestApiFn = defineFunction({
 const backend = defineBackend({
   nestApiFn,
 });
+
+// Create DynamoDB table stack
+const storageStack = backend.createStack("storage-stack");
+
+// Define DynamoDB table
+const dataTable = new Table(storageStack, "BigDaysDataTable", {
+  tableName: "bigdays-data",
+  partitionKey: { name: "id", type: AttributeType.STRING },
+  sortKey: { name: "type", type: AttributeType.STRING },
+  billingMode: BillingMode.PAY_PER_REQUEST,
+  removalPolicy: backend.stack.resourceRemovalPolicy,
+});
+
+// Grant Lambda function permissions to access DynamoDB
+dataTable.grantReadWriteData(backend.nestApiFn.resources.lambda);
+
+// Add table name to Lambda environment variables
+backend.nestApiFn.resources.lambda.addEnvironment(
+  "DYNAMODB_TABLE_NAME",
+  dataTable.tableName
+);
 
 // Create API Gateway stack
 const apiStack = backend.createStack("api-stack");

@@ -1,5 +1,11 @@
 {
   "name": "nest-api-function",
   "version": "1.0.0",
-  "type": "module"
+  "type": "module",
+  "dependencies": {
+    "@aws-sdk/client-dynamodb": "^3.0.0",
+    "@aws-sdk/lib-dynamodb": "^3.0.0",
+    "@vendia/serverless-express": "^4.12.6",
+    "express": "^4.18.2"
+  }
 }

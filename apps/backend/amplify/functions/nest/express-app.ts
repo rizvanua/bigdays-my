@@ -1,6 +1,7 @@
 // amplify/functions/nest/express-app.ts
 import express from "express";
 import { json, urlencoded } from "express";
+import { DynamoDBService } from "./dynamodb-service";
 
 export function createExpressApp() {
   const app = express();
@@ -59,6 +60,120 @@ export function createExpressApp() {
         url: req.url
       }
     });
+  });
+
+  // DynamoDB example routes
+  // Create or update an item
+  app.post('/api/items', async (req, res) => {
+    try {
+      const { id, type, ...rest } = req.body;
+      
+      if (!id || !type) {
+        return res.status(400).json({
+          error: 'Bad Request',
+          message: 'id and type are required'
+        });
+      }
+
+      const item = {
+        id,
+        type,
+        ...rest,
+        createdAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString(),
+      };
+
+      await DynamoDBService.putItem(item);
+      res.status(201).json({ success: true, item });
+    } catch (error: any) {
+      console.error('Error creating item:', error);
+      res.status(500).json({
+        error: 'Internal Server Error',
+        message: error.message
+      });
+    }
+  });
+
+  // Get an item by id and type
+  app.get('/api/items/:id/:type', async (req, res) => {
+    try {
+      const { id, type } = req.params;
+      const item = await DynamoDBService.getItem(id, type);
+      
+      if (!item) {
+        return res.status(404).json({
+          error: 'Not Found',
+          message: 'Item not found'
+        });
+      }
+
+      res.json({ success: true, item });
+    } catch (error: any) {
+      console.error('Error getting item:', error);
+      res.status(500).json({
+        error: 'Internal Server Error',
+        message: error.message
+      });
+    }
+  });
+
+  // Update an item
+  app.put('/api/items/:id/:type', async (req, res) => {
+    try {
+      const { id, type } = req.params;
+      const updates = {
+        ...req.body,
+        updatedAt: new Date().toISOString(),
+      };
+
+      await DynamoDBService.updateItem(id, type, updates);
+      const updatedItem = await DynamoDBService.getItem(id, type);
+      
+      res.json({ success: true, item: updatedItem });
+    } catch (error: any) {
+      console.error('Error updating item:', error);
+      res.status(500).json({
+        error: 'Internal Server Error',
+        message: error.message
+      });
+    }
+  });
+
+  // Delete an item
+  app.delete('/api/items/:id/:type', async (req, res) => {
+    try {
+      const { id, type } = req.params;
+      await DynamoDBService.deleteItem(id, type);
+      
+      res.json({ success: true, message: 'Item deleted' });
+    } catch (error: any) {
+      console.error('Error deleting item:', error);
+      res.status(500).json({
+        error: 'Internal Server Error',
+        message: error.message
+      });
+    }
+  });
+
+  // Query items by id (and optionally filter by type prefix)
+  app.get('/api/items/:id', async (req, res) => {
+    try {
+      const { id } = req.params;
+      const { typePrefix } = req.query;
+      
+      const items = await DynamoDBService.queryItems(
+        id,
+        typePrefix as string | undefined
+      );
+      
+      res.json({ success: true, items, count: items.length });
+    } catch (error: any) {
+      console.error('Error querying items:', error);
+      res.status(500).json({
+        error: 'Internal Server Error',
+        message: error.message
+      });
+    }
   });
 
   // 404 handler
