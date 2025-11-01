@@ -24,6 +24,17 @@ export function createExpressApp() {
     next();
   });
 
+  // Path normalization middleware - strip /api prefix if present
+  // This handles cases where API Gateway forwards paths with /api prefix
+  // app.use((req, res, next) => {
+  //   if (req.path.startsWith('/api/') || req.path === '/api') {
+  //     const newPath = req.path.replace(/^\/api/, '') || '/';
+  //     const query = req.url.includes('?') ? req.url.substring(req.url.indexOf('?')) : '';
+  //     req.url = newPath + query;
+  //   }
+  //   next();
+  // });
+console.log('Hello from BigDays API!');
   // Routes
   app.get('/', (req, res) => {
     res.json({
